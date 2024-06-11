@@ -5,18 +5,13 @@ import Input from "./components/Input"
 
 function App() {
   const form = useForm()
+
+  function onSubmit(value: unknown) {
+    console.log({ value })
+  }
   return (
-    <Form form={form} onSubmit={(value) => console.log({ value })}>
-      <Form.Item
-        name="firstName"
-        rules={{
-          required: "This field is required",
-          minLength: {
-            value: 5,
-            message: "At least 5 characters",
-          },
-        }}
-      >
+    <Form form={form} onSubmit={onSubmit}>
+      <Form.Item name="firstName">
         <Input autoComplete="off" />
       </Form.Item>
       <button type="submit">Submit</button>
