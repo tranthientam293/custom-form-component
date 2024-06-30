@@ -4,14 +4,18 @@ import { FieldValues, FormProvider, UseFormReturn } from "react-hook-form"
 
 import "./Form.scss"
 
-type FormProps = {
-  children: ReactElement | ReactElement[]
-  form: UseFormReturn<FieldValues, unknown, undefined>
-  onSubmit?: (values: unknown) => void
+type FormProps<T extends FieldValues> = {
+  children?: ReactElement | ReactElement[]
+  form: UseFormReturn<T, unknown, undefined>
+  onSubmit?: (values: T) => void
 }
 
-function Form({ children, form, onSubmit }: FormProps) {
-  const handleSubmit = form.handleSubmit((data: unknown) => {
+function Form<T extends FieldValues>({
+  children,
+  form,
+  onSubmit,
+}: FormProps<T>) {
+  const handleSubmit = form.handleSubmit((data: T) => {
     if (typeof onSubmit === "function") {
       onSubmit(data)
     }

@@ -1,2 +1,31 @@
 .main-form {
+  width: 100%;
+}
+
+.form-item-wrapper {
+  margin-bottom: 1rem;
+
+  .form-item-label {
+    font-size: 0.9375rem;
+    margin-bottom: 0.25rem;
+
+    &.required {
+      &::after {
+        content: "*";
+        font-size: 0.75rem;
+        color: var(--red-01);
+        margin-left: 0.125rem;
+      }
+    }
+  }
+
+  .form-item-content {
+    margin-bottom: 0.25rem;
+  }
+
+  .form-item-error {
+    font-size: 0.75rem;
+    color: var(--red-01);
+    margin-bottom: 0.5rem;
+  }
 }

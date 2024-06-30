@@ -1,9 +1,7 @@
 import BaseForm from "./Form"
 import FormItem from "./FormItem"
 
-type BaseFormType = typeof BaseForm
-
-type TForm = BaseFormType & {
+type TForm = typeof BaseForm & {
   Item: typeof FormItem
 }
 
