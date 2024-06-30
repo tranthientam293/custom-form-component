@@ -20,7 +20,7 @@ type FormData = {
 const schema = yup
   .object({
     name: yup.string().required(),
-    email: yup.string().required(),
+    email: yup.string().email().required(),
     subject: yup.string().required(),
     message: yup.string().required(),
     agreement: yup.boolean().required(),
@@ -29,18 +29,24 @@ const schema = yup
 
 function App() {
   const form = useForm<FormData>({
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: yupResolver(schema),
   })
+
+  const {
+    formState: { isValid, isDirty },
+  } = form
+
+  const disabled = !(isDirty && isValid)
 
   function onSubmit(values: FormData) {
     console.log(values)
   }
 
   return (
-    <div className="feedback-form">
-      <div className="title">Feedback Form</div>
-      <Form form={form} onSubmit={onSubmit}>
+    <div className="container">
+      <Form form={form} onSubmit={onSubmit} className="feedback-form">
+        <div className="title">Feedback Form</div>
         <Form.Item name="name" label="Name" required>
           <Input placeholder="Enter name" autoComplete="off" />
         </Form.Item>
@@ -57,11 +63,13 @@ function App() {
           <TextArea rows={5} placeholder="Enter message" autoComplete="off" />
         </Form.Item>
 
-        <Form.Item name="agreement" label="Agreement">
+        <Form.Item name="agreement" label="Agreement" required>
           <Checkbox />
         </Form.Item>
 
-        <button className="submit-btn">Submit</button>
+        <button className="submit-btn" disabled={disabled}>
+          Submit
+        </button>
       </Form>
     </div>
   )

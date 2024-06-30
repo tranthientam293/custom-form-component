@@ -1,17 +1,25 @@
+.container {
+  height: 100%;
+  padding: 2rem 1rem;
+}
+
 // form styles
 .feedback-form {
-  width: 500px;
-  height: 100%;
-  min-height: 800px;
+  width: 100%;
+  max-width: 500px;
   background-color: var(--white-01);
 
   padding: 1rem 2rem;
   border-radius: 1rem;
+  margin: 0 auto;
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
 
   .title {
     font-size: 2rem;
     font-weight: 700;
-    margin-top: 3rem;
     margin-bottom: 1.5rem;
     text-align: center;
   }
@@ -27,10 +35,17 @@
 
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    margin: 0 auto;
+    margin: 2rem auto 1rem;
+    transition: all linear 300ms;
 
     &:hover {
       opacity: 0.85;
+    }
+
+    &:disabled {
+      background-color: var(--gray-01);
+      color: var(--gray-02);
+      cursor: not-allowed;
     }
   }
 }

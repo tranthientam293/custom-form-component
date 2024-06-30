@@ -1,6 +1,8 @@
-import { ReactElement, cloneElement } from "react"
+import React from "react"
+
 import {
   Controller,
+  ControllerProps,
   FieldValues,
   RegisterOptions,
   useFormContext,
@@ -9,21 +11,25 @@ import classNames from "classnames"
 
 import "./Form.scss"
 
-type RenderField = Parameters<typeof Controller>[0]["render"]
-
-type Props = {
+export type FormItemProps = {
   name?: string
-  children: ReactElement
+  children: React.ReactElement
   label?: string
   rules?: RegisterOptions<FieldValues, string> | undefined
   required?: boolean
 }
 
-function FormItem({ name = "", children, label, rules, required }: Props) {
+function FormItem({
+  name = "",
+  children,
+  label,
+  rules,
+  required,
+}: FormItemProps) {
   const { control } = useFormContext()
 
-  const render: RenderField = ({ field, fieldState }) => {
-    const errMsg = fieldState.error?.message
+  const render: ControllerProps["render"] = ({ field, fieldState }) => {
+    const errMsg = fieldState.error?.message ?? ""
 
     return (
       <div className="form-item-wrapper">
@@ -35,9 +41,9 @@ function FormItem({ name = "", children, label, rules, required }: Props) {
           {label}
         </div>
         <div className="form-item-content">
-          {cloneElement(children, { ...field })}
+          {React.cloneElement(children, { ...field })}
         </div>
-        {!!errMsg && <div className="form-item-error">{String(errMsg)}</div>}
+        <div className="form-item-error">{errMsg}</div>
       </div>
     )
   }
